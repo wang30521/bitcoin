@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wp.bitcoin.dao.TransactionMapper">
+  <resultMap id="BaseResultMap" type="com.wp.bitcoin.po.Transaction">
+    <id column="txid" jdbcType="CHAR" property="txid" />
+    <result column="txhash" jdbcType="CHAR" property="txhash" />
+    <result column="blockhash" jdbcType="CHAR" property="blockhash" />
+    <result column="size" jdbcType="BIGINT" property="size" />
+    <result column="weight" jdbcType="INTEGER" property="weight" />
+    <result column="amount" jdbcType="DOUBLE" property="amount" />
+    <result column="txtime" jdbcType="TIMESTAMP" property="txtime" />
+    <result column="total_input" jdbcType="DOUBLE" property="totalInput" />
+    <result column="total_output" jdbcType="DOUBLE" property="totalOutput" />
+    <result column="confirmations" jdbcType="INTEGER" property="confirmations" />
+    <result column="fees" jdbcType="DOUBLE" property="fees" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    txid, txhash, blockhash, size, weight, amount, txtime, total_input, total_output, 
+    confirmations, fees
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from transaction
+    where txid = #{txid,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from transaction
+    where txid = #{txid,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.wp.bitcoin.po.Transaction">
+    insert into transaction (txid, txhash, blockhash, 
+      size, weight, amount, 
+      txtime, total_input, total_output, 
+      confirmations, fees)
+    values (#{txid,jdbcType=CHAR}, #{txhash,jdbcType=CHAR}, #{blockhash,jdbcType=CHAR}, 
+      #{size,jdbcType=BIGINT}, #{weight,jdbcType=INTEGER}, #{amount,jdbcType=DOUBLE}, 
+      #{txtime,jdbcType=TIMESTAMP}, #{totalInput,jdbcType=DOUBLE}, #{totalOutput,jdbcType=DOUBLE}, 
+      #{confirmations,jdbcType=INTEGER}, #{fees,jdbcType=DOUBLE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wp.bitcoin.po.Transaction">
+    insert into transaction
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="txid != null">
+        txid,
+      </if>
+      <if test="txhash != null">
+        txhash,
+      </if>
+      <if test="blockhash != null">
+        blockhash,
+      </if>
+      <if test="size != null">
+        size,
+      </if>
+      <if test="weight != null">
+        weight,
+      </if>
+      <if test="amount != null">
+        amount,
+      </if>
+      <if test="txtime != null">
+        txtime,
+      </if>
+      <if test="totalInput != null">
+        total_input,
+      </if>
+      <if test="totalOutput != null">
+        total_output,
+      </if>
+      <if test="confirmations != null">
+        confirmations,
+      </if>
+      <if test="fees != null">
+        fees,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="txid != null">
+        #{txid,jdbcType=CHAR},
+      </if>
+      <if test="txhash != null">
+        #{txhash,jdbcType=CHAR},
+      </if>
+      <if test="blockhash != null">
+        #{blockhash,jdbcType=CHAR},
+      </if>
+      <if test="size != null">
+        #{size,jdbcType=BIGINT},
+      </if>
+      <if test="weight != null">
+        #{weight,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null">
+        #{amount,jdbcType=DOUBLE},
+      </if>
+      <if test="txtime != null">
+        #{txtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="totalInput != null">
+        #{totalInput,jdbcType=DOUBLE},
+      </if>
+      <if test="totalOutput != null">
+        #{totalOutput,jdbcType=DOUBLE},
+      </if>
+      <if test="confirmations != null">
+        #{confirmations,jdbcType=INTEGER},
+      </if>
+      <if test="fees != null">
+        #{fees,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wp.bitcoin.po.Transaction">
+    update transaction
+    <set>
+      <if test="txhash != null">
+        txhash = #{txhash,jdbcType=CHAR},
+      </if>
+      <if test="blockhash != null">
+        blockhash = #{blockhash,jdbcType=CHAR},
+      </if>
+      <if test="size != null">
+        size = #{size,jdbcType=BIGINT},
+      </if>
+      <if test="weight != null">
+        weight = #{weight,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null">
+        amount = #{amount,jdbcType=DOUBLE},
+      </if>
+      <if test="txtime != null">
+        txtime = #{txtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="totalInput != null">
+        total_input = #{totalInput,jdbcType=DOUBLE},
+      </if>
+      <if test="totalOutput != null">
+        total_output = #{totalOutput,jdbcType=DOUBLE},
+      </if>
+      <if test="confirmations != null">
+        confirmations = #{confirmations,jdbcType=INTEGER},
+      </if>
+      <if test="fees != null">
+        fees = #{fees,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where txid = #{txid,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wp.bitcoin.po.Transaction">
+    update transaction
+    set txhash = #{txhash,jdbcType=CHAR},
+      blockhash = #{blockhash,jdbcType=CHAR},
+      size = #{size,jdbcType=BIGINT},
+      weight = #{weight,jdbcType=INTEGER},
+      amount = #{amount,jdbcType=DOUBLE},
+      txtime = #{txtime,jdbcType=TIMESTAMP},
+      total_input = #{totalInput,jdbcType=DOUBLE},
+      total_output = #{totalOutput,jdbcType=DOUBLE},
+      confirmations = #{confirmations,jdbcType=INTEGER},
+      fees = #{fees,jdbcType=DOUBLE}
+    where txid = #{txid,jdbcType=CHAR}
+  </update>
+</mapper>

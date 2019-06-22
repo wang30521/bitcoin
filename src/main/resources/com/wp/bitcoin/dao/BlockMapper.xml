@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wp.bitcoin.dao.BlockMapper">
+  <resultMap id="BaseResultMap" type="com.wp.bitcoin.po.Block">
+    <id column="blockhash" jdbcType="VARCHAR" property="blockhash" />
+    <result column="blockheight" jdbcType="INTEGER" property="blockheight" />
+    <result column="blocktime" jdbcType="TIMESTAMP" property="blocktime" />
+    <result column="txSize" jdbcType="SMALLINT" property="txsize" />
+    <result column="blocksize" jdbcType="INTEGER" property="blocksize" />
+    <result column="difficult" jdbcType="DOUBLE" property="difficult" />
+    <result column="prev_block_hash" jdbcType="VARCHAR" property="prevBlockHash" />
+    <result column="next_block_hash" jdbcType="VARCHAR" property="nextBlockHash" />
+    <result column="output_total" jdbcType="DOUBLE" property="outputTotal" />
+    <result column="transaction_fees" jdbcType="DOUBLE" property="transactionFees" />
+    <result column="merkle_root" jdbcType="VARCHAR" property="merkleRoot" />
+    <result column="bc_id" jdbcType="INTEGER" property="bcId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    blockhash, blockheight, blocktime, txSize, blocksize, difficult, prev_block_hash, 
+    next_block_hash, output_total, transaction_fees, merkle_root, bc_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from block
+    where blockhash = #{blockhash,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from block
+    where blockhash = #{blockhash,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.wp.bitcoin.po.Block">
+    insert into block (blockhash, blockheight, blocktime, 
+      txSize, blocksize, difficult, 
+      prev_block_hash, next_block_hash, output_total, 
+      transaction_fees, merkle_root, bc_id
+      )
+    values (#{blockhash,jdbcType=VARCHAR}, #{blockheight,jdbcType=INTEGER}, #{blocktime,jdbcType=TIMESTAMP}, 
+      #{txsize,jdbcType=SMALLINT}, #{blocksize,jdbcType=INTEGER}, #{difficult,jdbcType=DOUBLE}, 
+      #{prevBlockHash,jdbcType=VARCHAR}, #{nextBlockHash,jdbcType=VARCHAR}, #{outputTotal,jdbcType=DOUBLE}, 
+      #{transactionFees,jdbcType=DOUBLE}, #{merkleRoot,jdbcType=VARCHAR}, #{bcId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.wp.bitcoin.po.Block">
+    insert into block
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="blockhash != null">
+        blockhash,
+      </if>
+      <if test="blockheight != null">
+        blockheight,
+      </if>
+      <if test="blocktime != null">
+        blocktime,
+      </if>
+      <if test="txsize != null">
+        txSize,
+      </if>
+      <if test="blocksize != null">
+        blocksize,
+      </if>
+      <if test="difficult != null">
+        difficult,
+      </if>
+      <if test="prevBlockHash != null">
+        prev_block_hash,
+      </if>
+      <if test="nextBlockHash != null">
+        next_block_hash,
+      </if>
+      <if test="outputTotal != null">
+        output_total,
+      </if>
+      <if test="transactionFees != null">
+        transaction_fees,
+      </if>
+      <if test="merkleRoot != null">
+        merkle_root,
+      </if>
+      <if test="bcId != null">
+        bc_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="blockhash != null">
+        #{blockhash,jdbcType=VARCHAR},
+      </if>
+      <if test="blockheight != null">
+        #{blockheight,jdbcType=INTEGER},
+      </if>
+      <if test="blocktime != null">
+        #{blocktime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="txsize != null">
+        #{txsize,jdbcType=SMALLINT},
+      </if>
+      <if test="blocksize != null">
+        #{blocksize,jdbcType=INTEGER},
+      </if>
+      <if test="difficult != null">
+        #{difficult,jdbcType=DOUBLE},
+      </if>
+      <if test="prevBlockHash != null">
+        #{prevBlockHash,jdbcType=VARCHAR},
+      </if>
+      <if test="nextBlockHash != null">
+        #{nextBlockHash,jdbcType=VARCHAR},
+      </if>
+      <if test="outputTotal != null">
+        #{outputTotal,jdbcType=DOUBLE},
+      </if>
+      <if test="transactionFees != null">
+        #{transactionFees,jdbcType=DOUBLE},
+      </if>
+      <if test="merkleRoot != null">
+        #{merkleRoot,jdbcType=VARCHAR},
+      </if>
+      <if test="bcId != null">
+        #{bcId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wp.bitcoin.po.Block">
+    update block
+    <set>
+      <if test="blockheight != null">
+        blockheight = #{blockheight,jdbcType=INTEGER},
+      </if>
+      <if test="blocktime != null">
+        blocktime = #{blocktime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="txsize != null">
+        txSize = #{txsize,jdbcType=SMALLINT},
+      </if>
+      <if test="blocksize != null">
+        blocksize = #{blocksize,jdbcType=INTEGER},
+      </if>
+      <if test="difficult != null">
+        difficult = #{difficult,jdbcType=DOUBLE},
+      </if>
+      <if test="prevBlockHash != null">
+        prev_block_hash = #{prevBlockHash,jdbcType=VARCHAR},
+      </if>
+      <if test="nextBlockHash != null">
+        next_block_hash = #{nextBlockHash,jdbcType=VARCHAR},
+      </if>
+      <if test="outputTotal != null">
+        output_total = #{outputTotal,jdbcType=DOUBLE},
+      </if>
+      <if test="transactionFees != null">
+        transaction_fees = #{transactionFees,jdbcType=DOUBLE},
+      </if>
+      <if test="merkleRoot != null">
+        merkle_root = #{merkleRoot,jdbcType=VARCHAR},
+      </if>
+      <if test="bcId != null">
+        bc_id = #{bcId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where blockhash = #{blockhash,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wp.bitcoin.po.Block">
+    update block
+    set blockheight = #{blockheight,jdbcType=INTEGER},
+      blocktime = #{blocktime,jdbcType=TIMESTAMP},
+      txSize = #{txsize,jdbcType=SMALLINT},
+      blocksize = #{blocksize,jdbcType=INTEGER},
+      difficult = #{difficult,jdbcType=DOUBLE},
+      prev_block_hash = #{prevBlockHash,jdbcType=VARCHAR},
+      next_block_hash = #{nextBlockHash,jdbcType=VARCHAR},
+      output_total = #{outputTotal,jdbcType=DOUBLE},
+      transaction_fees = #{transactionFees,jdbcType=DOUBLE},
+      merkle_root = #{merkleRoot,jdbcType=VARCHAR},
+      bc_id = #{bcId,jdbcType=INTEGER}
+    where blockhash = #{blockhash,jdbcType=VARCHAR}
+  </update>
+</mapper>
