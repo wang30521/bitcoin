@@ -2,7 +2,11 @@ package com.wp.bitcoin.dao;
 
 import com.wp.bitcoin.po.Block;
 
+import java.util.List;
+
 public interface BlockMapper {
+
+
     int deleteByPrimaryKey(String blockhash);
 
     int insert(Block record);
@@ -14,4 +18,7 @@ public interface BlockMapper {
     int updateByPrimaryKeySelective(Block record);
 
     int updateByPrimaryKey(Block record);
+
+    //custom
+    List<Block> selectRecentBlocks();
 }

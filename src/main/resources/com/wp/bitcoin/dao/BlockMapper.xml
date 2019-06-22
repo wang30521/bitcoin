@@ -174,4 +174,14 @@
       bc_id = #{bcId,jdbcType=INTEGER}
     where blockhash = #{blockhash,jdbcType=VARCHAR}
   </update>
+
+
+  <!-- custom-->
+  <select id="selectRecentBlocks" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from block
+    order by block_height desc
+    limit 5
+  </select>
 </mapper>
